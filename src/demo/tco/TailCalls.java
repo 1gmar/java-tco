@@ -4,7 +4,7 @@ public class TailCalls
 {
     public static <T> TailCall<T> done(final T value)
     {
-        return new TailCall<>()
+        return new TailCall<T>()
         {
             @Override
             public boolean isComplete()
