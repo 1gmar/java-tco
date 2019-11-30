@@ -2,13 +2,15 @@ package demo.tco;
 
 import java.math.BigInteger;
 
+import static demo.tco.TailCalls.done;
+
 public class Fibonacci
 {
-    private static TailCall<BigInteger> fibonacciTailRec(final BigInteger current, final BigInteger next, int n)
+    private static TailCall<BigInteger> fibonacciTailRec(final BigInteger current, final BigInteger next, final int n)
     {
         return n > 0
             ? () -> fibonacciTailRec(next, next.add(current), n - 1)
-            : TailCalls.done(current);
+            : done(current);
     }
 
     public static BigInteger fibonacci(final int n)
