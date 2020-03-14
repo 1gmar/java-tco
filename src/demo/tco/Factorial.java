@@ -2,21 +2,17 @@ package demo.tco;
 
 import java.math.BigInteger;
 
-import static demo.tco.BigIntUtils.decrement;
-import static demo.tco.BigIntUtils.multiply;
-import static demo.tco.TailCalls.done;
+import static demo.tco.TailCall.done;
 
 public class Factorial
 {
-    private static TailCall<BigInteger> factorialTailRec(final BigInteger factorial, final BigInteger number)
+    private static TailCall<BigInteger> tailFactorial(final BigInteger factorial, final int n)
     {
-        return number.equals(BigInteger.ONE)
-            ? done(factorial)
-            : () -> factorialTailRec(multiply(factorial, number), decrement(number));
+        return n > 1 ? () -> tailFactorial(factorial.multiply(BigInteger.valueOf(n)), n - 1) : done(factorial);
     }
 
-    public static BigInteger factorial(final BigInteger number)
+    public static BigInteger factorial(final int number)
     {
-        return factorialTailRec(BigInteger.ONE, number).invoke();
+        return tailFactorial(BigInteger.ONE, number).invoke();
     }
 }
