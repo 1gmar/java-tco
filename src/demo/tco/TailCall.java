@@ -7,6 +7,7 @@ public interface TailCall<T>
 {
     TailCall<T> apply();
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     default T invoke()
     {
         return Stream.iterate(this, TailCall::apply)
